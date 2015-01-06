@@ -1,8 +1,9 @@
-var App = angular.module('ppt', []);
+var App = angular.module('ppt', [function(){
+	window.impress().init();
+}]);
 
 App.directive('liveEditor', [ function() {
 
-	console.log('hello world');
 
 	var template = '\
 		<div class="cssEditor">\

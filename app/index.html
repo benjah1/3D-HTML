@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <title>vagrant</title>
+    <title>3D in HTML</title>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css styles/vendor.css -->
@@ -22,18 +22,28 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+		<div id="impress">
 
-    <div live-editor css="div{color:red;}" code="<div>testing</div>">
-    	
-    </div>
+			<div id="bored" class="step slide" data-x="-1000" data-y="-1500">
+				<h1>3D in HTML</h1>
+				<span>by Zhibin Huang</span>
+			</div>
 
-    <div class="hero-unit">
-      <h1>'Allo, 'Allo!</h1>
-      <p>You now have</p>
-      <ul>
-        <li>HTML5 Boilerplate</li>
-      </ul>
-    </div>
+			<div class="step slide" data-x="0" data-y="-1500">
+				<h2>Bio & History</h2>
+				<q>Don't you think that presentations given <strong>in modern browsers</strong> shouldn't <strong>copy the limits</strong> of 'classic' slide decks?</q>
+			</div>
+
+			<div class="step slide" data-x="1000" data-y="-1500">
+				<h2>Table of Content</h2>
+			</div>
+
+			<div class="step slide" data-x="1000" data-y="-1000">
+				<h2>Basic Transition & Transform</h2>
+				<div live-editor css="div{color:red;}" code="<div>testing</div>"></div>
+			</div>
+
+		</div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -48,6 +58,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/impress.js/js/impress.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -55,5 +66,6 @@
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
+
 </body>
 </html>

@@ -5,19 +5,25 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
-  return gulp.src('app/styles/main.css')
+  return gulp.src('app/styles/main.scss')
+  	.pipe($.rubySass({
+			style: 'expanded',
+			precision: 10
+		}))
     .pipe($.autoprefixer({browsers: ['last 1 version']}))
-    .pipe(gulp.dest('.tmp/styles'));
+    .pipe(gulp.dest('.tmp/styles'))
+		.pipe($.size());
 });
 
 gulp.task('jshint', function () {
   return gulp.src('app/scripts/**/*.js')
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
+    .pipe($.jshint.reporter('fail'))
+		.pipe($.size());
 });
 
-gulp.task('html', ['styles'], function () {
+gulp.task('html', ['styles', 'jshint'], function () {
   var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 
   return gulp.src('app/*.html')
@@ -101,7 +107,7 @@ gulp.task('watch', ['connect'], function () {
     'app/images/**/*'
   ]).on('change', $.livereload.changed);
 
-  gulp.watch('app/styles/**/*.css', ['styles']);
+  gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
 });
 
