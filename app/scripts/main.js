@@ -1,4 +1,99 @@
 var App = angular.module('ppt', [function(){
+
+	(function ( document, window ) {
+		'use strict';
+		
+		var throttle = function (fn, delay) {
+			var timer = null;
+			return function () {
+				var context = this, args = arguments;
+				clearTimeout(timer);
+				timer = setTimeout(function () {
+					fn.apply(context, args);
+				}, delay);
+			};
+		};
+		
+		document.addEventListener("impress:init", function (event) {
+
+			var api = event.detail.api;
+
+			document.addEventListener("keydown", function ( event ) {
+				if ( event.keyCode >= 33 && event.keyCode <= 34 ) {
+					event.preventDefault();
+				}
+			}, false);
+			
+			document.addEventListener("keyup", function ( event ) {
+				if ( event.keyCode >= 33 && event.keyCode <= 34 ) {
+					switch( event.keyCode ) {
+						case 33: // pg up
+							api.prev();
+							break;
+						case 34: // pg down
+							api.next();
+							break;
+					}
+					
+					event.preventDefault();
+				}
+			}, false);
+			
+			// delegated handler for clicking on the links to presentation steps
+			document.addEventListener("click", function ( event ) {
+				// event delegation with "bubbling"
+				// check if event target (or any of its parents is a link)
+				var target = event.target;
+				while ( (target.tagName !== "A") &&
+						(target !== document.documentElement) ) {
+					target = target.parentNode;
+				}
+				
+				if ( target.tagName === "A" ) {
+					var href = target.getAttribute("href");
+					
+					// if it's a link to presentation step, target this step
+					if ( href && href[0] === '#' ) {
+						target = document.getElementById( href.slice(1) );
+					}
+				}
+				
+				if ( api.goto(target) ) {
+					event.stopImmediatePropagation();
+					event.preventDefault();
+				}
+			}, false);
+			
+			// touch handler to detect taps on the left and right side of the screen
+			// based on awesome work of @hakimel: https://github.com/hakimel/reveal.js
+			document.addEventListener("touchstart", function ( event ) {
+				if (event.touches.length === 1) {
+					var x = event.touches[0].clientX,
+						width = window.innerWidth * 0.3,
+						result = null;
+						
+					if ( x < width ) {
+						result = api.prev();
+					} else if ( x > window.innerWidth - width ) {
+						result = api.next();
+					}
+					
+					if (result) {
+						event.preventDefault();
+					}
+				}
+			}, false);
+			
+			// rescale presentation when window is resized
+			window.addEventListener("resize", throttle(function () {
+				// force going to active step again, to trigger rescaling
+				api.goto( document.querySelector(".active"), 500 );
+			}, 250), false);
+			
+		}, false);
+			
+	})(document, window);
+
 	window.impress().init();
 }]);
 
@@ -500,6 +595,7 @@ App.directive('liveEditor', [ function() {
 			setTimeout(function(){
 				window.jQuery(element).find('.cssEditor textarea').each(function() {
 						CodeMirror.fromTextArea(this, {
+							lineNumbers: true,
 							extraKeys: {"Ctrl-Space": "autocomplete"},
 							mode: 'css'
 						}).on('change', function(cm) {
@@ -508,8 +604,8 @@ App.directive('liveEditor', [ function() {
 				});
 				window.jQuery(element).find('.codeEditor textarea').each(function() {
 						CodeMirror.fromTextArea(this, {
-							extraKeys: {"Ctrl-Space": "autocomplete"},
-							mode: 'html'
+							lineNumbers: true,
+							extraKeys: {"Ctrl-Space": "autocomplete"}
 						}).on('change', function(cm) {
 							scene.html(cm.getValue());
 						});
