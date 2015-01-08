@@ -58,8 +58,15 @@ editor
 		max-height: 99%;
 		border: none;
 	}
+
+	.cssEditor, .codeEditor {
+		font-size: 13px;
+	}
 }
 
+.CodeMirror {
+	height: 200px;
+}
 
 /*
 iframe

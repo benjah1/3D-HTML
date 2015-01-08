@@ -4,6 +4,7 @@ var App = angular.module('ppt', [function(){
 
 App.controller('impress', ['$scope', function($scope) {
 	console.log($scope);
+
 	$scope.ex = [
 		 { // ex0
 		css: '.rect{background-color:red;width:100px;height:100px;transition:transform 1s;transform: translateX(50px);}',
@@ -469,10 +470,10 @@ App.directive('liveEditor', [ function() {
 
 	var template = '\
 		<div class="cssEditor">\
-			<textarea ng-model="cssEditor"></textarea>\
+			<textarea ui-codemirror="cssEditor" ng-model="cssContent"></textarea>\
 		</div>\
 		<div class="codeEditor">\
-			<textarea ng-model="codeEditor"></textarea>\
+			<textarea ng-model="codeContent"></textarea>\
 		</div>\
 		<div class="preview">\
 			<iframe src="frame.html"></iframe>\
@@ -488,23 +489,47 @@ App.directive('liveEditor', [ function() {
 			styler = jQuery(this).contents().find('#styler');
 			scene = jQuery(this).contents().find('#scene');
 
-			$scope.cssEditor = $scope.css;
-			$scope.codeEditor = $scope.code;
+			$scope.cssContent = window.css_beautify($scope.css);
+			$scope.codeContent = window.html_beautify($scope.code);
 
 			$scope.$digest();
-		});
 
-		$scope.$watch('cssEditor', function(val){
+			styler.html($scope.cssContent);
+			scene.html($scope.codeContent);
+
+			setTimeout(function(){
+				window.jQuery(element).find('.cssEditor textarea').each(function() {
+						CodeMirror.fromTextArea(this, {
+							extraKeys: {"Ctrl-Space": "autocomplete"},
+							mode: 'css'
+						}).on('change', function(cm) {
+							styler.html(cm.getValue());
+						});
+				});
+				window.jQuery(element).find('.codeEditor textarea').each(function() {
+						CodeMirror.fromTextArea(this, {
+							extraKeys: {"Ctrl-Space": "autocomplete"},
+							mode: 'html'
+						}).on('change', function(cm) {
+							scene.html(cm.getValue());
+						});
+				});
+			}, 1000);
+
+		});
+/*
+		$scope.$watch('cssContent', function(val){
 			if (styler) {
 				styler.html(val);
 			}
 		});
 
-		$scope.$watch('codeEditor', function(val){
+		$scope.$watch('codeContent', function(val){
 			if (scene) {
 				scene.html(val);
 			}
 		});
+*/
 	};
 	
 	return {
@@ -515,7 +540,7 @@ App.directive('liveEditor', [ function() {
 			css: '@css',
 			code: '@code'
 		},
-    template: template
+		template: template
 	};
 
 }]);
