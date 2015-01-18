@@ -100,6 +100,88 @@ var App = angular.module('ppt', [function(){
 App.controller('impress', ['$scope', function($scope) {
 	console.log($scope);
 
+var cube = '\
+	<div class="front obj"></div>\
+	<div class="back obj"></div>\
+	<div class="left obj"></div>\
+	<div class="right obj"></div>\
+	<div class="top obj"></div>\
+	<div class="bottom obj"></div>\
+'; 
+
+var cubeDom = '<div class="ground obj"><div class="cube obj">' + cube + '</div></div>';
+var cubeDom2 = '<div class="ground obj"><div class="cube obj"><div class="animate obj">' + cube + '</div></div></div>';
+var cubeDom3 = '<div class="ground obj"><div class="cube obj"><div class="animate1 obj"><div class="animate2 obj">' + cube + '</div></div></div></div>';
+
+
+var cubeCss = '\
+	.obj {\
+		position:absolute;\
+		width:0;\
+		height:0;\
+		transform-style:preserve-3d;\
+	}\
+	.ground {\
+		width: 200px;\
+		height: 200px;\
+		top: -100px;\
+		left: -100px;\
+		background-color: #ccc;\
+		transform: rotateX(80deg) translateZ(-80px);\
+	}\
+	.front, .back,\
+	.left, .right,\
+	.top, .bottom {\
+		width:100px;\
+		height:100px;\
+		content:"";\
+		position:absolute;\
+		left: -50px;\
+		top: -50px;\
+		opacity:.8;\
+	}\
+	.front, .back {\
+		background-color: red;\
+	}\
+	.left, .right {\
+		background-color: green;\
+	}\
+	.top, .bottom {\
+		background-color: blue;\
+	}\
+	.front {\
+		transform: rotateX(-90deg) translateZ(50px);\
+	}\
+	.back {\
+		transform: rotateX(-90deg) translateZ(-50px);\
+	}\
+	.left {\
+		transform: rotateY(90deg) rotateZ(-90deg) translateZ(50px);\
+	}\
+	.right {\
+		transform: rotateY(90deg) rotateZ(-90deg) translateZ(-50px);\
+	}\
+	.top {\
+		transform: translateZ(50px);\
+	}\
+	.bottom {\
+		transform: translateZ(-50px);\
+	}';
+
+	var cubeTexture = '\
+	.front, .back,\
+	.left, .right,\
+	.top, .bottom {\
+		background-image: url("images/texture.png");\
+		background-position: 200px 0;\
+	}\
+	.front {\
+		background-position: 300px 0;\
+	}\
+	.top, .bottom {\
+		background-position: 100px 0;\
+	}';
+
 	$scope.ex = [
 		 { // ex0
 		css: '.rect{background-color:red;width:100px;height:100px;transition:transform 1s;transform: translateX(50px);}',
@@ -120,188 +202,22 @@ App.controller('impress', ['$scope', function($scope) {
 		css: '#container{perspective:0px;}.rect{transform-style:preserve-3d;position:absolute;width:100px;height:100px;transition:transform 1s;}.r1{background-color:red;transform: rotateY(30deg);}.r2{background-color:green;transform: rotateY(90deg);}',
 		code: '<div class="rect r1"><div class="rect r2"></div></div>'
 	}, { // ex6
-		css: '\
-.obj {\
-position:absolute;\
-width:0;\
-height:0;\
-transform-style:preserve-3d;\
-}\
-.ground {\
-width: 200px;\
-height: 200px;\
-top: -100px;\
-left: -100px;\
-background-color: #ccc;\
-transform: rotateX(80deg) translateZ(-80px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-width:100px;\
-height:100px;\
-content:"";\
-position:absolute;\
-left: -50px;\
-top: -50px;\
-opacity:.8;\
-}\
-.x:before, .x:after {\
-	background-color: red;\
-}\
-.y:before, .y:after {\
-	background-color: green;\
-}\
-.z:before, .z:after {\
-	background-color: blue;\
-}\
-.x:before, .y:before, .z:before {\
-	transform: translateZ(50px);\
-}\
-.x:after, .y:after, .z:after {\
-	transform: translateZ(-50px);\
-}\
-.x {\
-	transform: rotateX(-90deg);\
-}\
-.y {\
-	transform: rotateY(90deg) rotateZ(-90deg);\
-}\
+		css: cubeCss  + '\
 .cube {\
 	transform: translateX(100px) translateY(100px) translateZ(51px);\
-}\
-		',
-		code: '<div class="ground obj"><div class="cube obj"><div class="z obj"></div><div class="x obj"></div><div class="y obj"></div></div></div>'
+}',
+		code: cubeDom
 	}, { // ex7
-		css: '\
-.obj {\
-position:absolute;\
-width:0;\
-height:0;\
-transform-style:preserve-3d;\
-}\
-.ground {\
-width: 200px;\
-height: 200px;\
-top: -100px;\
-left: -100px;\
-background-color: #ccc;\
-transform: rotateX(80deg) translateZ(-80px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-	width:100px;\
-	height:100px;\
-	content:"";\
-	position:absolute;\
-	left: -50px;\
-	top: -50px;\
-}\
-.x:before, .x:after {\
-	background-color: red;\
-}\
-.y:before, .y:after {\
-	background-color: green;\
-}\
-.z:before, .z:after {\
-	background-color: blue;\
-	background-position: 100px 0;\
-}\
-.x:before, .y:before, .z:before {\
-	transform: translateZ(50px);\
-}\
-.x:after, .y:after, .z:after {\
-	transform: translateZ(-50px);\
-}\
-.x {\
-	transform: rotateX(-90deg);\
-}\
-.y {\
-	transform: rotateY(90deg) rotateZ(-90deg);\
-}\
+		css: cubeCss + '\
 .cube {\
 	transform: translateX(100px) translateY(100px) translateZ(51px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-	background-image: url("images/texture.png");\
-	background-position: 200px 0;\
-}\
-.x:before {\
-	background-position: 300px 0;\
-}\
-.z:before, .z:after {\
-	background-position: 100px 0;\
-}\
-		',
-		code: '<div class="ground obj"><div class="cube obj"><div class="z obj"></div><div class="x obj"></div><div class="y obj"></div></div></div>'
+}' + cubeTexture,
+		code: cubeDom
 	}, { // ex8
-		css: '\
-.obj {\
-position:absolute;\
-width:0;\
-height:0;\
-transform-style:preserve-3d;\
-}\
-.ground {\
-width: 200px;\
-height: 200px;\
-top: -100px;\
-left: -100px;\
-background-color: #ccc;\
-transform: rotateX(80deg) translateZ(-80px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-width:100px;\
-height:100px;\
-content:"";\
-position:absolute;\
-left: -50px;\
-top: -50px;\
-}\
-.x:before, .x:after {\
-	background-color: red;\
-}\
-.y:before, .y:after {\
-	background-color: green;\
-}\
-.z:before, .z:after {\
-	background-color: blue;\
-}\
-.x:before, .y:before, .z:before {\
-	transform: translateZ(50px);\
-}\
-.x:after, .y:after, .z:after {\
-	transform: translateZ(-50px);\
-}\
-.x {\
-	transform: rotateX(-90deg);\
-}\
-.y {\
-	transform: rotateY(90deg) rotateZ(-90deg);\
-}\
+		css: cubeCss + '\
 .cube {\
 	transform: translateX(100px) translateY(100px) translateZ(51px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-	background-image: url("images/texture.png");\
-	background-position: 200px 0;\
-}\
-.x:before {\
-	background-position: 300px 0;\
-}\
-.z:before, .z:after {\
-	background-position: 100px 0;\
-}\
-.x:after, .y:after, .z:after {\
-	background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url("images/texture.png");  \
-}\
+}' + cubeTexture + '\
 .ground:before {\
 	content: "";\
 	position: absolute;\
@@ -313,69 +229,12 @@ top: -50px;\
 	box-shadow: -5px -5px 20px 5px black;\
 }\
 		',
-		code: '<div class="ground obj"><div class="cube obj"><div class="z obj"></div><div class="x obj"></div><div class="y obj"></div></div></div>'
+		code: cubeDom
 	}, { // ex9
-		css: '\
-.obj {\
-position:absolute;\
-width:0;\
-height:0;\
-transform-style:preserve-3d;\
-}\
-.ground {\
-width: 200px;\
-height: 200px;\
-top: -100px;\
-left: -100px;\
-background-color: #ccc;\
-transform: rotateX(80deg) translateZ(-80px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-width:100px;\
-height:100px;\
-content:"";\
-position:absolute;\
-left: -50px;\
-top: -50px;\
-}\
-.x:before, .x:after {\
-	background-color: red;\
-}\
-.y:before, .y:after {\
-	background-color: green;\
-}\
-.z:before, .z:after {\
-	background-color: blue;\
-}\
-.x:before, .y:before, .z:before {\
-	transform: translateZ(50px);\
-}\
-.x:after, .y:after, .z:after {\
-	transform: translateZ(-50px);\
-}\
-.x {\
-	transform: rotateX(-90deg);\
-}\
-.y {\
-	transform: rotateY(90deg) rotateZ(-90deg);\
-}\
+		css: cubeCss + '\
 .cube {\
 	transform: translateX(100px) translateY(100px) translateZ(51px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-	background-image: url("images/texture.png");\
-	background-position: 200px 0;\
-}\
-.x:before {\
-	background-position: 300px 0;\
-}\
-.z:before, .z:after {\
-	background-position: 100px 0;\
-}\
+}' + cubeTexture + '\
 .animate {\
 	-webkit-animation: yaxis 2s ease-in-out 0s infinite alternate;\
 }\
@@ -388,69 +247,12 @@ top: -50px;\
 	}\
 }\
 		',
-		code: '<div class="ground obj"><div class="cube obj"><div class="animate obj"><div class="z obj"></div><div class="x obj"></div><div class="y obj"></div></div></div></div>'
+		code: cubeDom2
 	}, { // ex10
-		css: '\
-.obj {\
-position:absolute;\
-width:0;\
-height:0;\
-transform-style:preserve-3d;\
-}\
-.ground {\
-width: 200px;\
-height: 200px;\
-top: -100px;\
-left: -100px;\
-background-color: #ccc;\
-transform: rotateX(80deg) translateZ(-80px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-width:100px;\
-height:100px;\
-content:"";\
-position:absolute;\
-left: -50px;\
-top: -50px;\
-}\
-.x:before, .x:after {\
-	background-color: red;\
-}\
-.y:before, .y:after {\
-	background-color: green;\
-}\
-.z:before, .z:after {\
-	background-color: blue;\
-}\
-.x:before, .y:before, .z:before {\
-	transform: translateZ(50px);\
-}\
-.x:after, .y:after, .z:after {\
-	transform: translateZ(-50px);\
-}\
-.x {\
-	transform: rotateX(-90deg);\
-}\
-.y {\
-	transform: rotateY(90deg) rotateZ(-90deg);\
-}\
+		css: cubeCss + '\
 .cube {\
 	transform: translateX(100px) translateZ(51px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-	background-image: url("images/texture.png");\
-	background-position: 200px 0;\
-}\
-.x:before {\
-	background-position: 300px 0;\
-}\
-.z:before, .z:after {\
-	background-position: 100px 0;\
-}\
+}' + cubeTexture + '\
 .animate {\
 	-webkit-animation: yaxis 2s linear 0s infinite;\
 	transform-origin: center 100px;\
@@ -464,69 +266,12 @@ top: -50px;\
 	}\
 }\
 		',
-		code: '<div class="ground obj"><div class="cube obj"><div class="animate obj"><div class="z obj"></div><div class="x obj"></div><div class="y obj"></div></div></div></div>'
+		code: cubeDom2
 	}, { // ex11
-		css: '\
-.obj {\
-position:absolute;\
-width:0;\
-height:0;\
-transform-style:preserve-3d;\
-}\
-.ground {\
-width: 200px;\
-height: 200px;\
-top: -100px;\
-left: -100px;\
-background-color: #ccc;\
-transform: rotateX(80deg) translateZ(-80px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-width:100px;\
-height:100px;\
-content:"";\
-position:absolute;\
-left: -50px;\
-top: -50px;\
-}\
-.x:before, .x:after {\
-	background-color: red;\
-}\
-.y:before, .y:after {\
-	background-color: green;\
-}\
-.z:before, .z:after {\
-	background-color: blue;\
-}\
-.x:before, .y:before, .z:before {\
-	transform: translateZ(50px);\
-}\
-.x:after, .y:after, .z:after {\
-	transform: translateZ(-50px);\
-}\
-.x {\
-	transform: rotateX(-90deg);\
-}\
-.y {\
-	transform: rotateY(90deg) rotateZ(-90deg);\
-}\
+		css: cubeCss + '\
 .cube {\
 	transform: translateX(50px) translateY(50px) translateZ(51px);\
-}\
-.x:before, .x:after,\
-.y:before, .y:after,\
-.z:before, .z:after {\
-	background-image: url("images/texture.png");\
-	background-position: 200px 0;\
-}\
-.x:before {\
-	background-position: 300px 0;\
-}\
-.z:before, .z:after {\
-	background-position: 100px 0;\
-}\
+}' + cubeTexture + '\
 .animate1 {\
 	-webkit-animation: xaxis 2s ease-in-out 0s infinite alternate;\
 }\
@@ -550,7 +295,7 @@ top: -50px;\
 	}\
 }\
 		',
-		code: '<div class="ground obj"><div class="cube obj"><div class="animate1 obj"><div class="animate2 obj"><div class="z obj"></div><div class="x obj"></div><div class="y obj"></div></div></div></div></div>'
+		code: cubeDom3
 	}, { // ex12
 		css: 'div{color:red;}',
 		code: '<div>ex12</div>'
@@ -561,7 +306,6 @@ top: -50px;\
 }]);
 
 App.directive('liveEditor', [ function() {
-
 
 	var template = '\
 		<div class="cssEditor">\

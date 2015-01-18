@@ -25,12 +25,13 @@
 
 		<div id="impress" ng-controller="impress">
 
-			<div id="0" class="step slide" data-x="0" data-y="0">
-				<h1>3D in HTML</h1>
-				<span>by Zhibin Huang</span>
-			</div>
+		<div id="slide-0" class="step slide" data-x="0" data-y="0" data-z="0">
+			<h1>3D in HTML</h1>
+			<div class="author">Zhibin Huang</div>
+			<div class="ppt">http://benjah1.github.io/3d-in-html</div>
+		</div>
 
-			<div id="1" class="step slide" data-x="1000" data-y="0">
+			<div id="slide-1" class="step slide" data-x="1200" data-y="0"  data-z="0">
 				<h2>Bio & History</h2>
 				<ul>
 					<li>Developer</li>
@@ -38,10 +39,10 @@
 					<li>Algorithms, Design Patterns</li>
 					<li>Personal Projects,
 						<ul>
-							<li>2008 - flash snow. I may need to rebuild it.</li>
-							<li>2009 - Windows snow v.1 - it may be in the archive. YouTube video.</li>
-							<li>2010 - 3d snowing in flash.</li>
-							<li>2011 - snow bookmarklet</li>
+							<li>2006 - Snowfall in Flash</li>
+							<li>2009 - Snowfall in Windows</li>
+							<li>2010 - Snowfall 3D in Flash</li>
+							<li>2011 - Snowfall bookmarklet</li>
 							<li>2012 - 3d xmas series</li>
 							<li>2013 - 3d xmas series</li>
 							<li>2014 - 3d xmas series</li>
@@ -50,17 +51,17 @@
 				</ul>
 			</div>
 
-			<div id="2" class="step slide" data-x="2000" data-y="0">
+			<div id="slide-2" class="step slide" data-x="2400" data-y="0" data-z="0">
 				<h2>Table of Content</h2>
 				<ul>
-					<li>Basic
+					<li>Basic knowledge
 						<ul>
 							<li>Transition & Transform</li>
 							<li>3D Transform</li>
 							<li>3D Terminology</li>
 						</ul>
 					</li>
-					<li>Modelling
+					<li>Modeling
 						<ul>
 							<li>3D Modeling</li>
 							<li>Texture & Shader</li>
@@ -72,7 +73,7 @@
 				</ul>
 			</div>
 
-			<div id="3" class="step slide" data-x="0" data-y="800">
+			<div id="slide-3" class="step slide" data-x="0" data-y="900" data-z="0">
 				<h2>Basic Transition & Transform</h2>
 				<p>Ex0. Transition & 2D Transform</p>
 				<div live-editor class="leditor" css="{{ex[0].css}}" code="{{ex[0].code}}"></div>
@@ -80,7 +81,7 @@
 				<div live-editor class="leditor" css="{{ex[1].css}}" code="{{ex[1].code}}"></div>
 			</div>
 
-			<div id="4" class="step slide" data-x="1000" data-y="800">
+			<div id="slide-4" class="step slide" data-x="1200" data-y="900" data-z="0">
 				<h2>3D Transform</h2>
 				<p>Ex2. Parallel</p>
 				<div live-editor class="leditor" css="{{ex[2].css}}" code="{{ex[2].code}}"></div>
@@ -88,7 +89,7 @@
 				<div live-editor class="leditor" css="{{ex[3].css}}" code="{{ex[3].code}}"></div>
 			</div>
 
-			<div id="5" class="step slide" data-x="2000" data-y="800">
+			<div id="slide-5" class="step slide" data-x="2400" data-y="900" data-z="0">
 				<h2>3D Transform</h2>
 				<h3>Transform-style & perspective</h3>
 				<p>Ex4. Transform-style</p>
@@ -97,10 +98,10 @@
 				<div live-editor class="leditor" css="{{ex[5].css}}" code="{{ex[5].code}}"></div>
 			</div>
 
-			<div id="6" class="step slide" data-x="3000" data-y="800">
+			<div id="slide-6" class="step slide" data-x="3600" data-y="900" data-z="0">
 				<h2>3D Terminology</h2>
 				<ul>
-					<li>Components
+					<li>
 						<dl>
 							<dt>Vertex</dt>
 							<dd>A 3-dimensional coordinate, which in groups comprise a polygon.</dd>
@@ -110,9 +111,9 @@
 							<dd>A flat connection of edges representing a boundary, field, or solid surface.</dd>
 						</dl>
 					</li>
-					<li>Basic
+					<li>
 						<dl>
-							<dt>Polygonal Model </dt>
+							<dt>Polygonal Model</dt>
 							<dd>Triangle</dd>
 							<dd>Quadrilateral</dd>
 							<dt>Texture</dt>
@@ -121,7 +122,7 @@
 							<dd>A shader is a set of instructions applied to a 3D model that lets the computer know how it should be displayed.</dd>
 						</dl>
 					</li>
-					<li>And also,
+					<li>
 						<dl>
 							<dt>Light source, such as lamp</dt>
 							<dt>Reflection </dt>
@@ -130,36 +131,43 @@
 				</ul>
 			</div>
 
-			<div id="7" class="step slide" data-x="0" data-y="1600">
+			<div id="slide-7" class="step slide slide-7" data-x="0" data-y="1800" data-z="0">
 				<h2>3D Modeling</h2>
 				<p>Ex6. A Cube</p>
-				<div live-editor class="leditor" css="{{ex[6].css}}" code="{{ex[6].code}}"></div>
+				<div live-editor class="leditor big" css="{{ex[6].css}}" code="{{ex[6].code}}"></div>
 			</div>
 
-			<div id="8" class="step slide" data-x="1000" data-y="1600">
-				<h2>3D Modeling</h2>
-				<h3>Texture & Shader</h3>
+			<div id="slide-8" class="step slide" data-x="1200" data-y="1800" data-z="0">
+				<h2>3D Modeling - Texture</h2>
 				<p>Ex7. Texture</p>
-				<div live-editor class="leditor" css="{{ex[7].css}}" code="{{ex[7].code}}"></div>
-				<p>Ex8. Shader</p>
-				<div live-editor class="leditor" css="{{ex[8].css}}" code="{{ex[8].code}}"></div>
+				<div live-editor class="leditor big" css="{{ex[7].css}}" code="{{ex[7].code}}"></div>
 			</div>
 
-			<div id="9" class="step slide" data-x="2000" data-y="1600">
+			<div id="slide-9" class="step slide" data-x="2400" data-y="1800" data-z="0">
+				<h2>3D Modeling - Shader</h2>
+				<p>Ex8. Shader</p>
+				<div live-editor class="leditor big" css="{{ex[8].css}}" code="{{ex[8].code}}"></div>
+			</div>
+
+			<div id="slide-10" class="step slide" data-x="3600" data-y="1800" data-z="0">
 				<h2>Animation</h2>
 				<p>Ex9. 2D Animation</p>
-				<div live-editor class="leditor" css="{{ex[9].css}}" code="{{ex[9].code}}"></div>
-				<p>Ex10. Transform-origin</p>
-				<div live-editor class="leditor" css="{{ex[10].css}}" code="{{ex[10].code}}"></div>
+				<div live-editor class="leditor big" css="{{ex[9].css}}" code="{{ex[9].code}}"></div>
 			</div>
 
-			<div id="10" class="step slide" data-x="3000" data-y="1600">
+			<div id="slide-11" class="step slide" data-x="4800" data-y="1800" data-z="0">
+				<h2>Animation</h2>
+				<p>Ex10. Transform-origin</p>
+				<div live-editor class="leditor big" css="{{ex[10].css}}" code="{{ex[10].code}}"></div>
+			</div>
+
+			<div id="slide-12" class="step slide" data-x="6000" data-y="1800" data-z="0">
 				<h2>Advanced Animation</h2>
 				<p>Ex11. Nested Animation</p>
-				<div live-editor class="leditor" css="{{ex[11].css}}" code="{{ex[11].code}}"></div>
+				<div live-editor class="leditor big" css="{{ex[11].css}}" code="{{ex[11].code}}"></div>
 			</div>
 
-			<div id="11" class="step slide" data-x="0" data-y="2400">
+			<div id="slide-13" class="step slide" data-x="0" data-y="2700" data-z="0">
 				<h2>Known Issues</h2>
 				<p>Ex12. IE</p>
 				<div live-editor class="leditor" css="{{ex[12].css}}" code="{{ex[12].code}}"></div>
@@ -167,15 +175,15 @@
 				<div live-editor class="leditor" css="{{ex[13].css}}" code="{{ex[13].code}}"></div>
 			</div>
 
-			<div id="12" class="step slide" data-x="1000" data-y="2400">
+			<div id="slide-14" class="step slide" data-x="1200" data-y="2700" data-z="0">
 				<h2>Continue Reading</h2>
 			</div>
 
-			<div id="13" class="step slide" data-x="2000" data-y="2400">
+			<div id="slide-15" class="step slide" data-x="2400" data-y="2700" data-z="0">
 				<h2>FAQ</h2>
 			</div>
 
-			<div id="14" class="step slide" data-x="3000" data-y="2400">
+			<div id="slide-16" class="step slide" data-x="3600" data-y="2700" data-z="0">
 				<h2>Thank You</h2>
 			</div>
 
@@ -194,7 +202,6 @@
 		<!-- build:js scripts/vendor.js -->
 		<!-- bower:js -->
 		<script src="../bower_components/jquery/dist/jquery.js"></script>
-		<script src="../bower_components/impress.js/js/impress.js"></script>
 		<script src="../bower_components/codemirror/lib/codemirror.js"></script>
 		<script src="../bower_components/codemirror/mode/css/css.js"></script>
 		<script src="../bower_components/js-beautify/js/lib/beautify-css.js"></script>
@@ -204,6 +211,7 @@
 		<!-- endbuild -->
 
 		<!-- build:js scripts/main.js -->
+		<script src="scripts/impress.js"></script>
 		<script src="scripts/main.js"></script>
 		<!-- endbuild -->
 
