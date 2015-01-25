@@ -7,10 +7,20 @@
   <title>3D in HTML - frame</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
-<body>
+<body class="frame">
 	<style id="styler"></style>
 	<div id="container">
 		<div id="scene"></div>
 	</div>
+
+	<!-- build:js scripts/frame_vendor.js -->
+	<!-- bower:js -->
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
+
+	<!-- build:js scripts/frame.js -->
+	<script src="scripts/frame.js"></script>
+	<!-- endbuild -->
 </body>
 </html>

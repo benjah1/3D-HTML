@@ -17,7 +17,8 @@ h3 {
 	font-size: 1.2em;
 }
 
-#impress {
+a:link, a:visited, a:active {
+	color: #666;
 }
 
 .slide {
@@ -30,7 +31,7 @@ h3 {
 	color: rgb(102, 102, 102);
 	text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
 
-	outline: 1px solid #000;
+	// outline: 1px solid #000;
 	transition: opacity 1s;
 	opacity: 0.4;
 
@@ -101,7 +102,7 @@ editor
 	}
 }
 
-#slide-0 {
+#slide-0, #slide-15 {
 	text-align: center;
 	h1 {
 		font-size: 10em;
@@ -117,18 +118,51 @@ editor
 	}
 }
 
-#slide-1, #slide-2 {
+#slide-1 {
+	a {
+		font-size: 0.6em;
+	}
+}
+
+#slide-1, #slide-2, #slide-6, #slide-13 {
 	font-size: 1.6em;
 	line-height: 2em;
 }
 
-#slide-7 {
+#slide-6 {
+	li {
+		line-height: initial;
+		list-style: none;
+	}
+	dt, dd {
+		line-height: 35px;
+	}
+	dd + dt {
+		margin-top: 8px;
+	}
+}
+
+#slide-13 {
+	li + li {
+		margin-top: 50px;
+	}
+}
+
+#slide-14, #slide-15 {
+	h2 {
+		margin-top: $height/2 - 60;
+		text-align: center;
+		font-size: 5em;
+	}
 }
 
 
 /*
 iframe
 */
+body.frame {
+	background-color: #fff;
+}
 #container {
 	transform-style: preserve-3d;
 	perspective: 800px;
@@ -140,11 +174,14 @@ iframe
 }
 
 #scene {
+	transition: transform 0.6s 0.05s;
 	transform-style: preserve-3d;
 	transform: rotateX(0deg) rotateY(0deg);
-	width: 0;
-	height: 0;
+	width: 300px;
+	height: 240px;
 	position: absolute;
-	left: 50%;
-	top: 50%;
+	left: -150px;
+	top: -120px;
+	// background-color: rgba(255,255,255, 0.8);
+	outline: 2px solid #000;
 }

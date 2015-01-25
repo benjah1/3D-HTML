@@ -98,7 +98,6 @@ var App = angular.module('ppt', [function(){
 }]);
 
 App.controller('impress', ['$scope', function($scope) {
-	console.log($scope);
 
 var cube = '\
 	<div class="front obj"></div>\
@@ -124,8 +123,8 @@ var cubeCss = '\
 	.ground {\
 		width: 200px;\
 		height: 200px;\
-		top: -100px;\
-		left: -100px;\
+		top: 0px;\
+		left: 50px;\
 		background-color: #ccc;\
 		transform: rotateX(80deg) translateZ(-80px);\
 	}\
@@ -138,7 +137,6 @@ var cubeCss = '\
 		position:absolute;\
 		left: -50px;\
 		top: -50px;\
-		opacity:.8;\
 	}\
 	.front, .back {\
 		background-color: red;\
