@@ -36,7 +36,7 @@
             memory = {};
         
         return function ( prop ) {
-            if ( typeof memory[ prop ] === "undefined" ) {
+            if ( typeof memory[ prop ] === 'undefined' ) {
                 
                 var ucProp  = prop.charAt(0).toUpperCase() + prop.substr(1),
                     props   = (prop + ' ' + prefixes.join(ucProp + ' ') + ucProp).split(' ');
@@ -107,43 +107,43 @@
     // `triggerEvent` builds a custom DOM event with given `eventName` and `detail` data
     // and triggers it on element given as `el`.
     var triggerEvent = function (el, eventName, detail) {
-        var event = document.createEvent("CustomEvent");
+        var event = document.createEvent('CustomEvent');
         event.initCustomEvent(eventName, true, true, detail);
         el.dispatchEvent(event);
     };
     
     // `translate` builds a translate transform string for given data.
     var translate = function ( t ) {
-        return " translate3d(" + t.x + "px," + t.y + "px," + t.z + "px) ";
+        return ' translate3d(' + t.x + 'px,' + t.y + 'px,' + t.z + 'px) ';
     };
     
     // `rotate` builds a rotate transform string for given data.
     // By default the rotations are in X Y Z order that can be reverted by passing `true`
     // as second parameter.
     var rotate = function ( r, revert ) {
-        var rX = " rotateX(" + r.x + "deg) ",
-            rY = " rotateY(" + r.y + "deg) ",
-            rZ = " rotateZ(" + r.z + "deg) ";
+        var rX = ' rotateX(' + r.x + 'deg) ',
+            rY = ' rotateY(' + r.y + 'deg) ',
+            rZ = ' rotateZ(' + r.z + 'deg) ';
         
         return revert ? rZ+rY+rX : rX+rY+rZ;
     };
     
     // `scale` builds a scale transform string for given data.
     var scale = function ( s ) {
-        return " scale(" + s + ") ";
+        return ' scale(' + s + ') ';
     };
     
     // `perspective` builds a perspective transform string for given data.
     var perspective = function ( p ) {
-        return " perspective(" + p + "px) ";
+        return ' perspective(' + p + 'px) ';
     };
     
     // `getElementFromHash` returns an element located by id from hash part of
     // window location.
     var getElementFromHash = function () {
         // get id from url # by removing `#` or `#/` from the beginning,
-        // so both "fallback" `#slide-id` and "enhanced" `#/slide-id` will work
-        return byId( window.location.hash.replace(/^#\/?/,"") );
+        // so both 'fallback' `#slide-id` and 'enhanced' `#/slide-id` will work
+        return byId( window.location.hash.replace(/^#\/?/,'') );
     };
     
     // `computeWindowScale` counts the scale factor between window size and size
@@ -170,7 +170,7 @@
     var ua = navigator.userAgent.toLowerCase();
     var impressSupported = 
                           // browser should support CSS 3D transtorms 
-                           ( pfx("perspective") !== null ) &&
+                           ( pfx('perspective') !== null ) &&
                            
                           // and `classList` and `dataset` APIs
                            ( body.classList ) &&
@@ -183,10 +183,10 @@
     
     if (!impressSupported) {
         // we can't be sure that `classList` is supported
-        body.className += " impress-not-supported ";
+        body.className += ' impress-not-supported ';
     } else {
-        body.classList.remove("impress-not-supported");
-        body.classList.add("impress-supported");
+        body.classList.remove('impress-not-supported');
+        body.classList.add('impress-supported');
     }
     
     // GLOBALS AND DEFAULTS
@@ -231,11 +231,11 @@
             };
         }
         
-        rootId = rootId || "impress";
+        rootId = rootId || 'impress';
         
         // if given root is already initialized just return the API
-        if (roots["impress-root-" + rootId]) {
-            return roots["impress-root-" + rootId];
+        if (roots['impress-root-' + rootId]) {
+            return roots['impress-root-' + rootId];
         }
         
         // data of all presentation steps
@@ -258,7 +258,7 @@
         
         // root presentation elements
         var root = byId( rootId );
-        var canvas = document.createElement("div");
+        var canvas = document.createElement('div');
         
         var initialized = false;
         
@@ -278,7 +278,7 @@
         // last entered step.
         var onStepEnter = function (step) {
             if (lastEntered !== step) {
-                triggerEvent(step, "impress:stepenter");
+                triggerEvent(step, 'impress:stepenter');
                 lastEntered = step;
             }
         };
@@ -288,7 +288,7 @@
         // last entered step.
         var onStepLeave = function (step) {
             if (lastEntered === step) {
-                triggerEvent(step, "impress:stepleave");
+                triggerEvent(step, 'impress:stepleave');
                 lastEntered = null;
             }
         };
@@ -313,18 +313,18 @@
                 };
             
             if ( !el.id ) {
-                el.id = "step-" + (idx + 1);
+                el.id = 'step-' + (idx + 1);
             }
             
-            stepsData["impress-" + el.id] = step;
+            stepsData['impress-' + el.id] = step;
             
             css(el, {
-                position: "absolute",
-                transform: "translate(-50%,-50%)" +
+                position: 'absolute',
+                transform: 'translate(-50%,-50%)' +
                            translate(step.translate) +
                            rotate(step.rotate) +
                            scale(step.scale),
-                transformStyle: "preserve-3d"
+                transformStyle: 'preserve-3d'
             });
         };
         
@@ -334,8 +334,8 @@
             
             // First we set up the viewport for mobile devices.
             // For some reason iPad goes nuts when it is not done properly.
-            var meta = $("meta[name='viewport']") || document.createElement("meta");
-            meta.content = "width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no";
+            var meta = $('meta[name="viewport"]') || document.createElement('meta');
+            meta.content = 'width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no';
             if (meta.parentNode !== document.head) {
                 meta.name = 'viewport';
                 document.head.appendChild(meta);
@@ -354,40 +354,40 @@
             
             windowScale = computeWindowScale( config );
             
-            // wrap steps with "canvas" element
+            // wrap steps with 'canvas' element
             arrayify( root.childNodes ).forEach(function ( el ) {
                 canvas.appendChild( el );
             });
             root.appendChild(canvas);
             
             // set initial styles
-            document.documentElement.style.height = "100%";
+            document.documentElement.style.height = '100%';
             
             css(body, {
-                height: "100%",
-                overflow: "hidden"
+                height: '100%',
+                overflow: 'hidden'
             });
             
             var rootStyles = {
-                position: "absolute",
-                transformOrigin: "top left",
-                transition: "all 0s ease-in-out",
-                transformStyle: "preserve-3d"
+                position: 'absolute',
+                transformOrigin: 'top left',
+                transition: 'all 0s ease-in-out',
+                transformStyle: 'preserve-3d'
             };
             
             css(root, rootStyles);
             css(root, {
-                top: "50%",
-                left: "50%",
+                top: '50%',
+                left: '50%',
                 transform: perspective( config.perspective/windowScale ) + scale( windowScale )
             });
             css(canvas, rootStyles);
             
-            body.classList.remove("impress-disabled");
-            body.classList.add("impress-enabled");
+            body.classList.remove('impress-disabled');
+            body.classList.add('impress-enabled');
             
             // get and init steps
-            steps = $$(".step", root);
+            steps = $$('.step', root);
             steps.forEach( initStep );
             
             // set a default initial state of the canvas
@@ -399,7 +399,7 @@
             
             initialized = true;
             
-            triggerEvent(root, "impress:init", { api: roots[ "impress-root-" + rootId ] });
+            triggerEvent(root, 'impress:init', { api: roots[ 'impress-root-' + rootId ] });
         };
         
         // `getStep` is a helper function that returns a step element defined by parameter.
@@ -407,12 +407,12 @@
         // is given step element with such id is returned, if DOM element is given it is returned
         // if it is a correct step element.
         var getStep = function ( step ) {
-            if (typeof step === "number") {
+            if (typeof step === 'number') {
                 step = step < 0 ? steps[ steps.length + step] : steps[ step ];
-            } else if (typeof step === "string") {
+            } else if (typeof step === 'string') {
                 step = byId(step);
             }
-            return (step && step.id && stepsData["impress-" + step.id]) ? step : null;
+            return (step && step.id && stepsData['impress-' + step.id]) ? step : null;
         };
         
         // used to reset timeout for `impress:stepenter` event
@@ -437,15 +437,15 @@
             // If you are reading this and know any better way to handle it, I'll be glad to hear about it!
             window.scrollTo(0, 0);
             
-            var step = stepsData["impress-" + el.id];
+            var step = stepsData['impress-' + el.id];
             
             if ( activeStep ) {
-                activeStep.classList.remove("active");
-                body.classList.remove("impress-on-" + activeStep.id);
+                activeStep.classList.remove('active');
+                body.classList.remove('impress-on-' + activeStep.id);
             }
-            el.classList.add("active");
+            el.classList.add('active');
             
-            body.classList.add("impress-on-" + el.id);
+            body.classList.add('impress-on-' + el.id);
             
             // compute target state of the canvas based on given step
             var target = {
@@ -498,14 +498,14 @@
                 // to keep the perspective look similar for different scales
                 // we need to 'scale' the perspective, too
                 transform: perspective( config.perspective / targetScale ) + scale( targetScale ),
-                transitionDuration: duration + "ms",
-                transitionDelay: (zoomin ? delay : 0) + "ms"
+                transitionDuration: duration + 'ms',
+                transitionDelay: (zoomin ? delay : 0) + 'ms'
             });
             
             css(canvas, {
                 transform: rotate(target.rotate, true) + translate(target.translate),
-                transitionDuration: duration + "ms",
-                transitionDelay: (zoomin ? 0 : delay) + "ms"
+                transitionDuration: duration + 'ms',
+                transitionDelay: (zoomin ? 0 : delay) + 'ms'
             });
             
             // Here is a tricky part...
@@ -577,30 +577,30 @@
         // There classes can be used in CSS to style different types of steps.
         // For example the `present` class can be used to trigger some custom
         // animations when step is shown.
-        root.addEventListener("impress:init", function(){
+        root.addEventListener('impress:init', function(){
             // STEP CLASSES
             steps.forEach(function (step) {
-                step.classList.add("future");
+                step.classList.add('future');
             });
             
-            root.addEventListener("impress:stepenter", function (event) {
-                event.target.classList.remove("past");
-                event.target.classList.remove("future");
-                event.target.classList.add("present");
+            root.addEventListener('impress:stepenter', function (event) {
+                event.target.classList.remove('past');
+                event.target.classList.remove('future');
+                event.target.classList.add('present');
             }, false);
             
-            root.addEventListener("impress:stepleave", function (event) {
-                event.target.classList.remove("present");
-                event.target.classList.add("past");
+            root.addEventListener('impress:stepleave', function (event) {
+                event.target.classList.remove('present');
+                event.target.classList.add('past');
             }, false);
             
         }, false);
         
         // Adding hash change support.
-        root.addEventListener("impress:init", function(){
+        root.addEventListener('impress:init', function(){
             
             // last hash detected
-            var lastHash = "";
+            var lastHash = '';
             
             // `#/step-id` is used instead of `#step-id` to prevent default browser
             // scrolling to element in hash.
@@ -608,11 +608,11 @@
             // And it has to be set after animation finishes, because in Chrome it
             // makes transtion laggy.
             // BUG: http://code.google.com/p/chromium/issues/detail?id=62820
-            root.addEventListener("impress:stepenter", function (event) {
-                window.location.hash = lastHash = "#/" + event.target.id;
+            root.addEventListener('impress:stepenter', function (event) {
+                window.location.hash = lastHash = '#/' + event.target.id;
             }, false);
             
-            window.addEventListener("hashchange", function () {
+            window.addEventListener('hashchange', function () {
                 // When the step is entered hash in the location is updated
                 // (just few lines above from here), so the hash change is 
                 // triggered and we would call `goto` again on the same element.
@@ -628,10 +628,10 @@
             goto(getElementFromHash() || steps[0], 0);
         }, false);
         
-        body.classList.add("impress-disabled");
+        body.classList.add('impress-disabled');
         
         // store and return API for given impress.js root element
-        return (roots[ "impress-root-" + rootId ] = {
+        return (roots[ 'impress-root-' + rootId ] = {
             init: init,
             goto: goto,
             next: next,

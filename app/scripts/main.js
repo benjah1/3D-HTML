@@ -1,8 +1,6 @@
+'use strict';
 var App = angular.module('ppt', [function(){
-
-	(function ( document, window ) {
-		'use strict';
-		
+	(function ( document, window ) {	
 		var throttle = function (fn, delay) {
 			var timer = null;
 			return function () {
@@ -14,17 +12,17 @@ var App = angular.module('ppt', [function(){
 			};
 		};
 		
-		document.addEventListener("impress:init", function (event) {
+		document.addEventListener('impress:init', function (event) {
 
 			var api = event.detail.api;
 
-			document.addEventListener("keydown", function ( event ) {
+			document.addEventListener('keydown', function ( event ) {
 				if ( event.keyCode >= 33 && event.keyCode <= 34 ) {
 					event.preventDefault();
 				}
 			}, false);
 			
-			document.addEventListener("keyup", function ( event ) {
+			document.addEventListener('keyup', function ( event ) {
 				if ( event.keyCode >= 33 && event.keyCode <= 34 ) {
 					switch( event.keyCode ) {
 						case 33: // pg up
@@ -40,17 +38,17 @@ var App = angular.module('ppt', [function(){
 			}, false);
 			
 			// delegated handler for clicking on the links to presentation steps
-			document.addEventListener("click", function ( event ) {
-				// event delegation with "bubbling"
+			document.addEventListener('click', function ( event ) {
+				// event delegation with 'bubbling'
 				// check if event target (or any of its parents is a link)
 				var target = event.target;
-				while ( (target.tagName !== "A") &&
+				while ( (target.tagName !== 'A') &&
 						(target !== document.documentElement) ) {
 					target = target.parentNode;
 				}
 				
-				if ( target.tagName === "A" ) {
-					var href = target.getAttribute("href");
+				if ( target.tagName === 'A' ) {
+					var href = target.getAttribute('href');
 					
 					// if it's a link to presentation step, target this step
 					if ( href && href[0] === '#' ) {
@@ -66,7 +64,7 @@ var App = angular.module('ppt', [function(){
 			
 			// touch handler to detect taps on the left and right side of the screen
 			// based on awesome work of @hakimel: https://github.com/hakimel/reveal.js
-			document.addEventListener("touchstart", function ( event ) {
+			document.addEventListener('touchstart', function ( event ) {
 				if (event.touches.length === 1) {
 					var x = event.touches[0].clientX,
 						width = window.innerWidth * 0.3,
@@ -85,9 +83,9 @@ var App = angular.module('ppt', [function(){
 			}, false);
 			
 			// rescale presentation when window is resized
-			window.addEventListener("resize", throttle(function () {
+			window.addEventListener('resize', throttle(function () {
 				// force going to active step again, to trigger rescaling
-				api.goto( document.querySelector(".active"), 500 );
+				api.goto( document.querySelector('.active'), 500 );
 			}, 250), false);
 			
 		}, false);
@@ -105,8 +103,7 @@ var cube = '\
 	<div class="left obj"></div>\
 	<div class="right obj"></div>\
 	<div class="top obj"></div>\
-	<div class="bottom obj"></div>\
-'; 
+	<div class="bottom obj"></div>'; 
 
 var cubeDom = '<div class="ground obj"><div class="cube obj">' + cube + '</div></div>';
 var cubeDom2 = '<div class="ground obj"><div class="cube obj"><div class="animate obj">' + cube + '</div></div></div>';
@@ -300,7 +297,7 @@ var cubeCss = '\
 	}, { // ex13
 		css: 'div{color:red;}',
 		code: '<div>ex13</div>'
-	}]
+	}];
 }]);
 
 App.directive('liveEditor', [ function() {
@@ -326,8 +323,10 @@ App.directive('liveEditor', [ function() {
 			styler = jQuery(this).contents().find('#styler');
 			scene = jQuery(this).contents().find('#scene');
 
-			$scope.cssContent = window.css_beautify($scope.css);
-			$scope.codeContent = window.html_beautify($scope.code);
+			var c = 'css_beautify', h = 'html_beautify';
+
+			$scope.cssContent = window[c]($scope.css);
+			$scope.codeContent = window[h]($scope.code);
 
 			$scope.$digest();
 
@@ -338,7 +337,7 @@ App.directive('liveEditor', [ function() {
 				window.jQuery(element).find('.cssEditor textarea').each(function() {
 						CodeMirror.fromTextArea(this, {
 							lineNumbers: true,
-							extraKeys: {"Ctrl-Space": "autocomplete"},
+							extraKeys: {'Ctrl-Space': 'autocomplete'},
 							mode: 'css'
 						}).on('change', function(cm) {
 							styler.html(cm.getValue());
@@ -347,7 +346,7 @@ App.directive('liveEditor', [ function() {
 				window.jQuery(element).find('.codeEditor textarea').each(function() {
 						CodeMirror.fromTextArea(this, {
 							lineNumbers: true,
-							extraKeys: {"Ctrl-Space": "autocomplete"}
+							extraKeys: {'Ctrl-Space': 'autocomplete'}
 						}).on('change', function(cm) {
 							scene.html(cm.getValue());
 						});

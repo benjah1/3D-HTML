@@ -1,4 +1,7 @@
+'use strict';
+
 window.jQuery(function($) {
+
 	var height = $(document).height();
 	var width = $(document).width();
 	var currPos = {};
@@ -73,8 +76,8 @@ window.jQuery(function($) {
 		currPos.x = event.pageX;
 		currPos.y = event.pageY;
 
-		cx = Math.map(width/2 - currPos.x, width/2, -width/2, -60, 60);
-		cy = Math.map(2*height/3 - currPos.y, 2*height/3, -height/3, 60, -60);
+		var cx = Math.map(width/2 - currPos.x, width/2, -width/2, -60, 60);
+		var cy = Math.map(2*height/3 - currPos.y, 2*height/3, -height/3, 60, -60);
 		$('#scene').transform({
 			'rotate': {
 				x: Math.floor(cy) +'deg',

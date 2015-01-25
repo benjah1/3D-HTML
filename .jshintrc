@@ -13,6 +13,13 @@
   "quotmark": "single",
   "undef": true,
   "unused": true,
-  "strict": true,
-  "jquery": true
+  "strict": false,
+  "node": true,
+  "jquery": true,
+  "multistr": true,
+  "globals": {
+  	"App": true,
+  	"CodeMirror": true,
+  	"angular": true
+  }
 }
